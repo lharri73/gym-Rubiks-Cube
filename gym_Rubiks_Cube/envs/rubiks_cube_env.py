@@ -34,10 +34,6 @@ class RubiksCubeEnv(gym.Env):
         self.scramble_high = 10
         self.doScamble = True
 
-    def _seed(self, seed=None):
-        self.np_random, seed = seeding.np_random(seed)
-        return [seed]
-
     def step(self, action):
         self.action_log.append(action)
         self.ncube.minimalInterpreter(actionList[action])
@@ -57,7 +53,7 @@ class RubiksCubeEnv(gym.Env):
         return self.state, reward, done, others
 
 
-    def reset(self):
+    def reset(self, seed=None, options=None):
         self.state = {}
         self.ncube = cube.Cube(order=self.orderNum)
         if self.doScamble:
@@ -65,6 +61,9 @@ class RubiksCubeEnv(gym.Env):
         self.state = self.getstate()
         self.step_count = 0
         self.action_log = []
+
+        self.np_random, seed = seeding.np_random(seed)
+
         return self.state
 
     def getstate(self):
