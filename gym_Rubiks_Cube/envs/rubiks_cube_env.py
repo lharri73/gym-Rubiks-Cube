@@ -18,7 +18,9 @@ tileDict = {
 }
 
 class RubiksCubeEnv(gym.Env):
-    metadata = {'render_modes': ['human']}
+    metadata = {
+            'render_modes': ['human'],
+            'render_fps': 1}
 
     def __init__(self, orderNum=3):
         # the action is 6 move x 2 direction = 12
@@ -67,7 +69,7 @@ class RubiksCubeEnv(gym.Env):
         return self.state, {}
 
     def getstate(self):
-        return np.array([tileDict[i] for i in self.ncube.constructVectorState()])
+        return np.array([tileDict[i] for i in self.ncube.constructVectorState()], dtype=np.uint8)
 
     def render(self, mode='human', close=False):
         if close:
