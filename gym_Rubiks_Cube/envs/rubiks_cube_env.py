@@ -62,7 +62,7 @@ class RubiksCubeEnv(gym.Env):
         self.step_count = 0
         self.action_log = []
 
-        self.np_random, seed = seeding.np_random(seed)
+        self.np_random, seed = gym.utils.seeding.np_random(seed)
 
         return self.state
 
